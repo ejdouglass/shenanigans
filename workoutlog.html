@@ -1,0 +1,188 @@
+<!doctype html>
+
+<html lang="en-US">
+
+<head>
+	<meta charset="utf-8" http-equiv="Cache-control" content="no-cache" />
+	<title>Proto Workout Log!</title>
+	<link rel="stylesheet" href="workoutlog.css">
+</head>
+
+<body>
+
+<h3 id="headline">Working...</h3>
+
+<div id="loginbox">
+	User ID: <input type="text" id="loginid"><br>
+	Password: <input type="password" id="loginpw"><br>
+	<button id="loginbutton">Log In!</button>
+</div>
+
+<button id="clearcookie">Logout</button>
+
+<div id="ex1"></div>
+<div id="ex2"></div>
+<div id="ex3"></div>
+<div id="ex4"></div>
+<div id="ex5"></div>
+<div id="ex6"></div>
+<div id="ex7"></div>
+<div id="ex8"></div>
+<div id="ex9"></div>
+<div id="ex10"></div>
+
+
+<script src="ejd.js"></script>
+<script src="workoutlog.js"></script>
+</body>
+</html>
+
+<!-- 
+6/20/17
+Ok, login works, and seems to work beautifully right now. Hopefully I don't break it.
+...
+Anyway, next up! Data manipulation. Nerdy stuff. Essentially I really need to figure out:
+	- What all needs to go in the database, now and growing into the future
+	- Give the user ways to meaningfully interact with the information they can have access to
+	- Put up appropriate safeguards, whether in restricting user input or sanitizing it, for when it passes back into the DB
+	- Make some scripts that run so that periodically update the DB in an intelligent way (saving user data so that a crashed page isn't
+		an absurdly big setback)
+	- And, of course, figure out how to store potentially large blocks of "zipped" or compressed information (via my own clever shorthands
+		or by some built-in means, if applicable), and make a server-side script that decompresses and delivers this information in
+		coherent fashion into merrily waiting client-side variables.
+	- NOTE: Just looked up a few Googled terms for compressing variables for database use. Nothing generic came up, so backburner for now.
+-->
+
+
+<!-- 
+
+Right now the loaded workouts are pretty silly simple: just lots of reps. Just gotta track my reps, BRO!
+	- Basic interface: display my different exercises is an easy-to-click fashion. Click an exercise, click up some reps, click back out.
+		OR
+	Click to highlight, click below to tally up some reps, click back to neutral or click to another exercise.
+
+-->
+
+
+<!-- 
+Database Design: PP
+Execution notes:
+
+
+Drafting notes:
+ENCODING for EXERCISE MADNESS
+- First rule I'm self-imposing: either make everything predictable-length, minimizing the need for functions to read and figure out how to parse
+	- OR -
+		Include a leading number that indicates number of spaces to read, which will allow the counter to just grab variables and jump blocks quickly
+- mm/dd/yyyy, stored literally or compressed:
+	YEAR as a number starting with some arbitrary starting time such as 2016 + 0-a-z (1-26, covering us up until 2042 :P)
+	MONTH and DAY as 01 through zz (almost 1300 possibilities, easily accounting for the entire year)
+	- I think more important than any of that, though, is to make sure every data value has the same exact predictable length in the DB string...
+	that will allow the decoding script to just blissfully chunk away everything into a giant array without any extra calculation
+- type of workout (traditional sets'n'reps in sequence, supersets, accrued volume, AMRAP, EMOTM, ___ ... gotta eventually make slots for all of em)
+	My scratch-math indicates that if you use two numbers/letters (UBERHEX) to indicate the exercise (i.e. bd, ap, whatever, starting with 00 to zz), you have a total of 
+	almost 1300 different combinations - hopefully plenty.
+
+ALSO, it would be Super Grand if we had a "quick access" portion of the DB that accounts for stuff the user is likely to look at first.
+	- Today, the last week, the current cycle overall, probably first and foremost; this data should be accessed first, and will be a relatively small amount of data
+	- Since this will eventually be resposnible for storing months and even potentially years' worth of data, this intel can be sorted in separate columns,
+		which can grow a little dustier from disuse.
+... hm, I think it'd be possible, given that the currentuser's variables are global, I could have a function that either sequentially pulls information at predictable
+	intervals (like grab the most important stuff immediately, secondary stuff in 2.5 seconds, etc.), or if I want to be more precise about it all, have a rolling
+	interval function that goes deeper every time more information is available, i.e. checks currentuser for username, ok cool we got that, then it keeps checking currentuser
+	for next-level stuff like the current day's workouts or something, cool cool, then another set of variables covers more historical or esoteric information; the interval
+	will finally clear once all that data is loaded piecemeal
+		- BIG ASSUMPTION: this all assumes just grabbing the whole dang thing is slow, so start by just grabbing the whole dang thing in the code, then during testing time, 
+		try filling the database with as much information as you can... copy-paste, two hundred "people" with six months of all doing identical workouts :P... and see if that
+		substantially hampers the access time, and if it looks UX-injuringly sluggish, think about the above implementation
+
+TANGENT: For stuff like events, where I can't necessarily predict the length of data available in the event, maybe making more copious use of escape characters? Ponder that later.
+
+
+** DISCOVERY ** : The 65k byte restriction is from the aggregate of the entire row. This means I'll need either BLOB, LONGTEXT, and/or separate tables per month, which I'm leaning towards.
+	Since this will necessitate having each month of each year be its own table, when people plan workout regimens that last for several weeks (4+), it'll necessarily bleed into
+		months they can't access yet. As such, the "workout plan viewer" needs to be its own thing... JUST a viewer, since you can't edit for days past your current, but with hooks
+		in it so that you can see/access at-a-glance info about workouts that you've done so far, and click down for details.
+
+And some parts of the 'world' will need to have their own variables, which can merrily live in their own table.
+GRATITUDE ; 'FORUMS,' which consists of Post ID, username, message, timestamp, etc. ; TENET'S AVAILABLE READINGS? ; TRIBES/CLANS ; 
+
+
+Note, for this or for future/DP stuff, I can have a variable in the "standalone" table that can be "scripts to run" or something, and add a check to every login.
+	Theoretically this would allow me to just slide in and slide out extra changes without actually having to fundamentally change JS code.
+
+-->
+
+
+
+<!--
+Old stuff below. Might make a more potent version of this later.
+Basically, being able to pull up a handy calendar-type thing for people to use to set start dates would be neat...
+Though a lot of stuff will be "start today!", which can be handled by pretty straightforward time/date functionality.
+
+<div id="wkform1">
+	Duration: 
+	<select id="wkduration">
+		<option value="oneweek">1 Week</option>
+		<option value="twoweeks">2 Weeks</option>
+		<option value="threeweeks">3 Weeks</option>
+		<option value="fourweeks">4 Weeks</option>
+	</select><br>
+	<select id="wkstartmonth">
+		<option value="january">January</option>
+		<option value="february">February</option>
+		<option value="march">March</option>
+		<option value="april">April</option>
+		<option value="may">May</option>
+		<option value="june">June</option>
+		<option value="july">July</option>
+		<option value="august">August</option>
+		<option value="september">September</option>
+		<option value="october">October</option>
+		<option value="november">November</option>
+		<option value="december">December</option>
+	</select>
+	<select>
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+		<option value="13">13</option>
+		<option value="14">14</option>
+		<option value="15">15</option>
+		<option value="16">16</option>
+		<option value="17">17</option>
+		<option value="18">18</option>
+		<option value="19">19</option>
+		<option value="20">20</option>
+		<option value="21">21</option>
+		<option value="22">22</option>
+		<option value="23">23</option>
+		<option value="24">24</option>
+		<option value="25">25</option>
+		<option value="26">26</option>
+		<option value="27">27</option>
+		<option value="28">28</option>
+		<option value="29">29</option>
+		<option value="30">30</option>
+		<option value="31">31</option>
+	</select><br>
+	<input type="checkbox" name="wkdays" value="Monday">Monday<br>
+	<input type="checkbox" name="wkdays" value="Tuesday">Tuesday<br>
+	<input type="checkbox" name="wkdays" value="Wednesday">Wednesday<br>
+	<input type="checkbox" name="wkdays" value="Thursday">Thursday<br>
+	<input type="checkbox" name="wkdays" value="Friday">Friday<br>
+	<input type="checkbox" name="wkdays" value="Saturday">Saturday<br>
+	<input type="checkbox" name="wkdays" value="Sunday">Sunday<br>
+
+	<button id="wkform1next">Next!</button>
+</div>
+-->

@@ -1,0 +1,177 @@
+<!doctype html>
+
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Son of Sephos</title>
+	<link rel="stylesheet" href="sonofsephos.css">
+</head>
+
+<body>
+
+<div id="maininputholder">
+	<div id="mainscreen">
+		<p id="historytext" class="sostext"></p>
+		<p id="latesttext" class="sostext"></p>
+	</div>
+	<input type="text" id="playerinput" autofocus>
+</div>
+
+<div id="handhud">
+	<div id="lefthand"></div><div id="righthand"></div>
+</div>
+
+<div id="lefthudholder">
+	<div id="rtbar">
+		<div id="currentrt"></div>
+		<div id="rtnum"></div>
+	</div>
+	<div id="mrtbar">
+		<div id="currentmrt"></div>
+		<div id="mrtnum"></div>
+	</div>
+</div>
+
+<div id="righthudholder">
+</div>
+
+<script src="ejd.js"></script>
+<script src="sonofsephos.js"></script>
+</body>
+</html>
+
+<!--
+Nine twenty-something
+	Defenses include BLOCK, DODGE, and ARMOR for three layers. Bump up armor for higher relevance than in DR; not as static?
+
+SPELLBOOKS: Earth, Air, Water, Fire, Aether (Lightning in DR as well ... roll into fire or air?)
+			... borrowing from Lone Wolf, maybe stat boosts for going deeper in certain spell arenas?
+[Earth] : Good for warding and buffing?
+	- Block Booster (Aug)
+	- Quagmire (Debil)
+	- Stone Stab (TM)
+[Fire] : Fantastic DEEPZ
+	- Fireball (TM)
+	- Dragon's Breath (TM)
+[Water] : Freezing, assisting, mild restoration
+	- Frostbite (Debil)
+	- Frost Scythe (TM?)
+[Air] : Support... buffing and debilitating
+	- Balance?
+	- Anti-Missile Shield? (Aug)
+	- Dodge Booster (Aug)
+	- Lightning Bolt (TM)
+	- Zephyr (Util? Aug?)
+	- Shockwave / Outward blast that unbalances, knocks over, and in some cases, creates pushback
+[Aether] : Rulebreaking and all-roundedness
+	- Ethereal Shield
+	- Aether Cloak (Aug)
+	- Fissure (Util)
+... possibly also some cross-spellbook requirements? Like "Ice Magic" requiring base knowledge of both water and earth?
+	... thus, the elemental magic is also conceptual to a degree; earth magic hardens, water magic softens, fire magic vaporizes, etc.
+
+HUD needs: weather/sky, exits, health/attunement/fatigue, body position, stun/bleed/poison/etc., battle, RT, hand contents, spell prep(s)
+
+OK! This window will have a few things going on:
+	- Main text display for the player
+	- Overhead view (sun, moons, or picture of window/ceiling if indoors)
+	- Weathertop (sun/snow/rain/fog/clouds) ... maybe combined with the above? Hm.
+	- Ambience edges (like trees 'n stuff if you're in a forest, etc.)
+	- Minimap and/or exit HUD
+	- Health HUD (body position, stun/bleed/poison/etc.)
+		- Instead of a "life bar," maybe a "ragged man figurine" or other visual figure/iconography
+	- Mana HUD
+	- Battle HUD (threats at melee, pole, range)
+	- Roundtime bar (obvi!)
+	- Gear HUD (right hand/left hand)
+All of this should obviously co-exist as beautifully as possible. :P 
+
+Also gonna need a text parser. :P How do I recognize commands? Probably just in browser!
+
+Ok, so a limited area, fun and nostalgic core elements, and NPC's running around scripting like goobers, because haha. :P
+	- You can achieve DR levels of saturation with just a couple to a few dozen characters running around.
+
+Sketchabackground:
+	- This takes place after Elanthia was somehow rocked with an extinction-level event. Let's see... we had a blue moon, red moon, and black moon. Let's say the black one cracked so now there are only two moons, red and blue! The starting area is near the Crossing. Almost all records were lost, and everyone kind of rebuilt on the ashes.
+		- This is an easy way to not have to worry about old lore as well as an easy way to rename everything. :P
+	- Moon Mages were universally sent into gibbering madness by whatever happened to Katamba. No sane active MM's are around anymore. There's a possibility there are a few MM's that survived as "fun crazy," but overall they're quite rare.
+	- Traders and Thieves are one and the same! They run the show.
+	- Empaths and Necromancers kind of bled together, as well. (Ha!) The secrets of Empathy have been all but lost, and if the Necromancers proper still exist, they're nowhere to be seen in the central mainland. So, the remaining... fleshbenders... have kind of cobbled together some healing and body manipulation magic. They can do some interesting healing things, although healing others is generally a slow and laborious process, without Empathy. Best work your Alchemy and First Aid!
+	- Holy magic is kind of not a thing anymore. So much for Clerics and Paladins! 
+	- Rangers are definitely a thing. Barbarians also. They're all part of one group, with one actively using life magic, and the other using inner magic.
+		- They are the bulwark against the night and the ones who lead the expeditions out into the Old World.
+	- And, of course, Warrior Mages! Elemental warriors of some sort. There are a few who can use their voices to produce interesting elemental effects, but full-on bards aren't really a thing at this point.
+
+	- There ARE guilds, so to speak, and a government of some sort. It's not all loosey-goosey, but definitely more Wild West than DR's Elanthia. 
+
+	- There are field goblins, wood trolls, grendels, cougars, musk hogs... what else in the beginning?
+	- The northern areas kind of stop at REAVERTOWN. This includes the Ruined Dale (tiny houses, but still a swimming hole and climbing tree!). Haven is known of but cut off by a river of madness. Lava? Maybe! Did Dirge actually find new life? Maybe!
+	- West Gate goes through goblin territory, into the forest. Tiger Clan and Wolf Clan are flourishing, relatively.
+
+	- Oh yes! Everyone is human. :P Or at least, all playable characters, for now. Where did everyone else go? Hmmm!
+
+- Mana types: Elemental, Life, Lunar. Does Holy still exist? Who knows!
+
+- Stats: Strength, Agility, Reflex, Stamina, Intelligence, Wisdom, Discipline, Charisma. Any changes?
+- Vitality (HP), fatigue (physical energy), attunement (magical energy), concentration (mental energy?)
+
+- Skills count, but scale off a "starting level" (like 40 ranks isn't 4x better than 10 ranks), with "talent points" to invest at regular intervals.
+	- This is what allows the consolidated skills, like "Swordplay," to diverge at the player's discretion into different types of weaponry.
+
+SKILLS
+NOTE: Each skillset has a "meta" skill that both does its own thing and acts as a modifier and baseline for every other skill in the set.
+ALSO: I'm thinking of "Talents" and "Techniques." The former unlock at intervals, the latter with TDP's (which earn over time, duh). 
+	- Talent Points for each skill at ranks 10, 30, 60, 100, 150, 200. 6 points there! After that? I dunno. Was thinking 1000 rank cap. Or 999. Can reassess then.
+		- Maybe primary skillset gets x2 or something? Or maybe a way to boost your talent points, up to 2x your naturally earned ones.
+		- Possibly also primary skillset gets +1 talents to every skill? As bonus to above OR instead.
+
+	[Survival]
+	- Athletics/Traversal
+	- Outdoorsmanship/Landliving/Gathering/Finding Shit
+	- Stealth
+	- Mending/Healing
+	- Skinning?
+	- Thievery
+	- Awareness/Sensing/Kinesthenics (meta?)
+	[Magic]
+	- Spell Patterning (meta)
+		: Dual Weaving (two spell preps for a singular cast)
+	- Mana Attunement
+	- Magical Devices
+	- Augmentation + Warding
+	- Debilitation
+	- Utility
+	- Summoning
+		... note that we can maybe slap together augmentation and warding? Under an umbrella Conservation skill or something?
+	[Lore]
+	- Scholarship (... meta?)
+	- Metalworking
+	- Carving
+	- Tailoring?
+	- Alchemy
+	- Appraisal
+	- Engineering
+	- Performance
+	- Negotiation
+	[Warfare]
+	- (Meta skill as of yet unnamed)
+	- Swordplay (subspec straight blades, sabres, short blades, two-handed focus)
+	- Axes (subspec ... ???)
+	- Polearms (subspec staves, spears, halberds)
+	- Hammertime (subspec hammers, maces, flails, two-handed focus)
+	- Brawling (subspec ... ???)
+	- Flinging (subspec into large or small thrown)
+	- Archery (subspecialize in bows or crossbows)
+	- Blocking (subspec parrying, shield usage)
+	- Dodging (evasion :P)
+	- Light Armor (subspec cloth, leather, bone, light chain)
+	- Heavy Armor (subspec heavy chain, brigandine, plate)
+
+SCRIPT ZOMBIES!
+	- Teachers	- Foragers	- Climbers/swimmers		- Casters	- Appraisers	- Jugglers/folders		- Braiders
+N?PC SILLINESS!
+	- Gweth		- Bank auctions		- Disarmer/picker services		- Gemsellers		- Rando conversations (with easter egg references to old school DR)
+
+
+
+-->

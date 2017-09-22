@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html lang="en-US">
+
+<head>
+	<meta charset="utf-8" />
+	<title>PrPl New Account Creation</title>
+</head>
+
+<body>
+
+<!-- Formatting below is shite. Fix at some point. :P -->
+<p>I heard you'd like to make a new account. Well, ok then, partner! Let's do it!</p>
+First Name: <input type="text" id="firstname"><br>
+Last Name: <input type="text" id="lastname"><br>
+Email Addy: <input type="text" id="email"><br>
+Country: 
+<select id="country">
+	<option value="none">---</option>
+	<option value="USA" selected="selected">USA</option>
+</select><br>
+City: <input type="text" id="city"><br>
+<!-- Drop downs, SON: -->
+State: <input type="text" id="state"><br>
+Address: <input type="text" id="address"><br><br>
+
+<!-- Need to add an async thing that checks for valid username. 
+Currently thinking a thingy that only runs when username is NOT in focus AND has a value AND isn't already being flagged as bright red "name already taken." -->
+Username: <input type="text" id="username"><br>
+<!-- Let's change it so that the passwords you enter are hidden little boops. Also CONFIRM PASSWORD section. -->
+Password: <input type="password" id="password"><br>
+Re-enter password: <input type="password" id="password2"><br>
+
+<br>
+<button id="createnewaccount">Create Account!</button>
+<br><br>
+<button id="clearfields">Clear Fields</button>
+<br><br>
+
+<div id="feedback">I give you feedback, dear, gentle user.</div>
+
+<script src="ejd.js"></script>
+<script src="ppnewaccount.js"></script>
+</body>
+</html>

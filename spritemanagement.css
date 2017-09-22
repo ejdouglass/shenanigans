@@ -1,0 +1,99 @@
+html, p {
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+}
+
+body {
+	margin: 10px;
+}
+
+html, body {
+	height: 100%;
+}
+
+div {
+	display: inline-block;
+}
+
+p {
+	display: inline-block;
+}
+
+#frameframe div {
+	display: none;
+	position: relative;
+	top: 10px;
+	left: 10px;
+}
+
+#frame1, #frame2, #frame3, #frame4, #frame5, #frame6, #frame7, #frame8, #frame9, #frame10, #frame11, #frame12 {
+	width: 150px;
+	height: 150px;
+	border: 1px solid black;
+}
+
+#numframes, #fewerframes, #moreframes {
+	width: 50px;
+	height: 25px;
+	border: 1px solid grey;
+	margin: 0 10px 0 10px;
+	font-size: 20px;
+	text-align: center;
+}
+
+#framestext {
+	position: relative;
+	left: 80px;
+}
+
+#defaultframewidth, #defaultframeheight {
+	width: 28px;
+	text-align: right;
+}
+
+#fullspritesheet, #spriteview {
+	position: relative;
+	display: none;
+}
+
+#fullspritesheet {
+	background: url("testing123sprite.png");
+	top: 200px;
+	width: 100%;
+	height: 100%;
+}
+
+#spriteview {
+	border: 1px solid black;
+	width: 150px;
+	height: 150px;
+	top: 0px;
+	left: 0px;
+}
+
+#spritesource {
+	text-align: right;
+}
+
+#spritestats {
+	position: absolute;
+	top: -20px;
+}
+
+#framesaver {
+	position: relative;
+	left: 20px;
+}
+
+#animenubutton {
+	position: absolute;
+	text-align: center;
+	width: 50px;
+	height: 50px;
+	right: 50px;
+	bottom: 50px;
+	border: 1px solid black;
+	border-radius: 100%;
+	z-index: 4;
+}

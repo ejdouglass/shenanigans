@@ -1,0 +1,100 @@
+#greeting {
+	position: absolute;
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: 2px;
+	top: 20px;
+	left: 20px;
+	padding: 12px;
+	width: 240px;
+	height: 80px;
+}
+
+#loginholder {
+	display: inline-block;
+	position: absolute;
+	right: 10px;
+}
+
+#logoutbutton {
+	display: none;
+	position: absolute;
+	right: 10px;
+}
+
+#datebanner {
+	position: relative;
+	display: none;
+	background: rgba(30,180,250,0.7);
+	width: 100%;
+	box-sizing: border-box;
+	height: 60px;
+	top: -10%;
+	padding-left: 12px;
+	font-family: sans-serif;
+	border-bottom: 2px solid black;
+}
+
+#datebanner p {
+	font-size: 20px;
+}
+
+#todo {
+	position: absolute;
+	display: none;
+	box-sizing: border-box;
+	width: 50%;
+	top: 20%;
+	left: 25%;
+}
+
+#todo h3 {
+	text-align: center;
+}
+
+#notes {
+	position: relative;
+	left: 10%;
+	width: 80%;
+	height: 60px;
+}
+
+#notessubmit {
+	position: relative;
+	top: 20px;
+}
+
+#actionbuttons {
+	position: absolute;
+	box-sizing: border-box;
+	border: 1px solid rgba(0,0,0,0.5);
+	padding: 5px;
+	width: 220px;
+	left: 20px;
+	top: 260px;
+	display: none;
+}
+
+#actionbuttons button {
+	width: 100%;
+}
+
+#calledgoal, #calledgroup, #calledtoday {
+	display: none;
+	position: absolute;
+	box-sizing: border-box;
+	width: 100%;
+	border: 2px;
+	border-top: 0px;
+	border-style: solid;
+	border-color: black;
+	height: 500px;
+}
+
+#mygroups, #groupsearch, #groupmaker {
+	display: none;
+	position: relative;
+	box-sizing: border-box;
+	border: 1px solid aqua;
+	width: 100%;
+	height: 300px;
+}

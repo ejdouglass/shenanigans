@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="spritemanagement.css" />
+	<title>Spritey Bits!</title>
+</head>
+
+<body>
+
+<div id="animenubutton"></div>
+
+<div>
+	<p id="framestext">Frames: </p><br>
+	<button id="fewerframes"><<</button><div id="numframes"></div><button id="moreframes">>></button>
+	<p>Default: <input type="text" id="defaultframewidth"></input>px by <input type="text" id="defaultframeheight"></input>px</p>
+	<button id="defaultchanger">Save New Default</button>
+	<p>Source = <input type="text" id="spritesource" value="testing123sprite.png"></input></p>
+	<button id="spritesourcechanger">Save New Spritesource</button>
+</div>
+
+<br>
+
+<div id="frameframe">
+	<div id="frame1"></div>
+	<div id="frame2"></div>
+	<div id="frame3"></div>
+	<div id="frame4"></div>
+	<div id="frame5"></div>
+	<div id="frame6"></div>
+	<div id="frame7"></div>
+	<div id="frame8"></div>
+	<div id="frame9"></div>
+	<div id="frame10"></div>
+	<div id="frame11"></div>
+	<div id="frame12"></div>
+</div>
+
+<div id="fullspritesheet">
+	<div id="spritestats">Current (x,y): (0,0)</div>
+	<div id="spriteview"></div>
+</div>
+
+
+<script src="spritemanagement.js"></script>
+</body>
+</html>
+
+<!-- 
+
+NEW: FRAME boxes across the top, labelled (frame1, frame2, etc.), clicking on any one of them highlights it and lets you punk around and fill out that frame.
+	- HOME/ANIMATE screen shows frame boxes on the top, lets you set default frame size, has an "animate" button that animates based on new variables, has a box with animation variables 
+	- FRAME X screen lets you pick "default" or "custom" frame size, custom being a saved divergence from the default; bottom of the screen is a "viewfinder" that 
+		lets you scroll around and lock in coords for background-position for that current frame (with a "grab previous" button that lets you just grab the previous frame's coords
+		to work from)
+	- BOTH screens have the frames across the top and are on the same page; just options differ a bit when a specific frame is highlighted
+	- ANIMATE screen has animation-length for each frame chilling in plain view for easy access
+	- Bottom-right can have an absolute ANIMATE button to return to animating; maybe clicking again on current frame can also return to ANIMATE
+
+A total container that's geared for the current sprite assembly (such as "character") with the right number of pieces within it. All are hidden by default, 
+	and hitting the right button will display them properly, set to default values (heads are generally all the same size, for example).
+Then, a "working box" where you select individual parts from the options available for that type of sprite and can jigger things around to get the box to be the right size AND
+	get the sprite to fit properly within that box AND reposition the box appropriately to the rest of the sprite.
+It might be helpful for the "working box" to NOT hide overflow, or rather, to be a "viewfinder" div on top of a much larger div containing the spritesheet, so it's far easier
+	to dig around for the desired sprite.
+Maybe two controls, a "move by ten pixels" button and a "move by one pixel" micro-adjuster, plus a "jump to coords" box. 
+
+So maybe at the top we can have a "whatchu making?" input where we can select what we're putting together. Right now static sprite person is the default.
+
+It needs to be able to "save" the final results once we get an assembled dude or dudette looking pretty decent.
+
+"Assembly mode" versus "animate mode" ...
+	- Assembly: see above
+	- Animate: the "working box" is different and just shows the animation of a bunch of selected still-frames, which are laid out as loaded saved assembled sprites from the assembly states
+		... the adjustable stuff here is "adjust each sprite in the animation frame," "adjust length of each frame in the animation," and "total frames of animation"
+
+I also want this mini-app to be able to help me with animations, so once we get the static sprites all figured out, it needs to be able to handle plugging in several static assemblages
+	into a coherent animation.
+
+-->

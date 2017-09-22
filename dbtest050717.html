@@ -1,0 +1,35 @@
+<!doctype html>
+
+<html lang="en-US">
+
+<head>
+	<meta charset="utf-8" http-equiv="Cache-control" content="no-cache" />
+	<title>Database Spaghetti Highway</title>
+	<link rel="stylesheet" href="dbtest.css">
+</head>
+
+<body>
+<p>Let's figure out a LOGIN SITUATION!</p>
+Username: <input type="text" id="loginid" autofocus><br><br>
+Password: <input type="text" id="loginpw"><br><br>
+<button id="loginsubmit">Log In!</button>
+
+<br><br><br>
+
+<p>Current user name:  <span id="userdata"></span></p>
+
+<br>
+
+<p>Enter the script you'd like to run below, precisely. Or just click one of the listed options. Same difference!</p>
+<p>Currently available options:</p>
+<ul>
+	<li id="tablecreate">Create PGPeeps</li>
+	<li id="tablefill">Fill PGPeeps with default values</li>
+</ul>
+<input type="text" id="scriptlauncher" autofocus>
+<button id="maketable">Do a Thing</button>
+
+<script src="ejd.js"></script>
+<script src="dbtest.js"></script>
+</body>
+</html>

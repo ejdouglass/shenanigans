@@ -1,0 +1,9 @@
+#tablecreate, #tablefill {
+	border: 1px solid black;
+	margin: 10px;
+	padding: 10px;
+	height: 50px;
+	width: 100px;
+	font-weight: bold;
+	text-align: center;
+}

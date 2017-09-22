@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Calendario</title>
+	<link rel="stylesheet" href="jecalendar.css">
+</head>
+
+<body>
+
+<div id="greeting">Hey, stranger.</div>
+
+<div id="loginholder">
+	<input type="text" id="loginid" placeholder="Username">
+	<input type="password" id="loginpw" placeholder="Password">
+	<button id="loginbutton">Login!</button>
+</div>
+
+<div id="logoff">
+	<button id="logoutbutton">Logout!</button>
+</div>
+
+<div id="actionbuttons">
+	<button id="callgoal">Make a Goal!</button><br>
+	<button id="callgroup">Groups!</button><br>
+	<button id="calltoday">What's Up Today!</button>
+</div>
+
+<div id="todo">
+	<div id="datebanner">
+	</div>
+	<div id="calledgoal">
+	</div>
+	<div id="calledgroup">
+		<button id="seemygroups">My Groups</button>
+		<button id="findagroup">Find a Group</button>
+		<button id="makeagroup">Make a New Group</button>
+		<div id="mygroups">
+			<h3>Mai Groopz</h3>
+		</div>
+		<div id="groupsearch">
+			<h3>Find uh Groop</h3>
+		</div>
+		<div id="groupmaker">
+			<h3>Let's Make a Group!</h3>
+			Group Name: <input type="text" placeholder="Group Name"><br>
+			Group Sharing: <input type="text" placeholder="Whatchu wanna get done!"><br>
+			Group Outsider Privacy Level: <input type="text" placeholder="Ninja or loud 'n proud?"><br>
+			Group Check-In Timetable: <input type="text" placeholder="Daily, daily weekday, weekly, etc."><br>
+
+		</div>
+	<!-- 
+	Right around here... GROUP STUFF!
+	Functionalities: [My Groups] [Find a Group] [Make a New Group]
+	- ) My Groups: default functionality upon tab load, lists the groups you're part of; it'd also be good if we can get to these in a single click, maybe from the greeting/idtag?
+	- ) Find a Group: by default just lists X groups; advanced option is to have a search bar that queries by group name; clickable filters to narrow down results
+	- ) Make a New Group: 
+	[groups] : id (auto-increment), members (with permissions), in-group shared attributes, privacy level/listing level, groupgoal, groupgoaltimeframe (start/end/measurement-timing)
+	-->
+	</div>
+	<div id="calledtoday">
+		<h3>Daily Grind Stuff</h3>
+			<ul><li>Meep</li><li>Moop</li></ul>
+		<h3>Today's Notes</h3>
+			<textarea cols="40" rows="3" id="notes" placeholder="Jot a note..."></textarea>
+			<button id="notessubmit">Add Note</button>
+	</div>
+	
+</div>
+
+
+<script src="ejd.js"></script>
+<script src="jecalendar.js"></script>
+</body>
+</html>
+
+<!-- 
+
+RIGHT NAO:
+- Make "Make a Group" work. Like, at all - just make it make a thing in the database. Creator automatically gets maximum privileges.
+	- Extra: "Search for Group" functionality, which lists all groups OR all groups by goal OR some other potential metrics
+	- "Create Group Goal" in 
+- Implement "My Goals" functionality for personal account. Include ability ... I trailed off here and don't remember what I was gonna say. :P
+		- Button: "Add A Goal!" : tab-types incl. Body, Mind, etc. ... form-define each as daily, until-defeated, whatnot
+
+9/11/17
+We got an agreement with JOOF to get some shit done this week. So! What are we building? What's it gotta do?
+- ) Login page ... with login and cookies! (We already built that stuff. Woo! And it's already functioning, justwithin jecalendar specifically.)
+- ) Successful login = fire up the calendar! (CALENDARMODE ... activate! ... won't always be the first MODE active)
+	- akshully ... GROUP is the focus. Since Calendar is personal. Groups reference personal versions of, but don't have their own, calendar. For now.
+- ) Grab ALL THE DATA and slip it into the user's object.
+	- critical point: what is ALL THE DATA? ... we must also be ready to cull the relevant group data
+	- akshully again... the bulk of activity will be in the calendar tables, so just grab and smoosh those, right?
+	- don't really know how to handle "comments" and such at this point
+	- so maybe for now, groups are just a way to cross-reference goals
+IDEA! Maybe the calendar tables... immense and powerful! ... have TWO id types, personal and group! So group messages can chill in the calendar tables too!
+	- normal ID numbers are as expected...
+	- group ID numbers saved in as "g" + group id, meaning we have to be sure that we're in VARCHAR mode and not INT for this column now...
+
+Moving right along. So! Use the previous code to enable login functionality.
+- Once you're logged in, all your data is pulled. Yay! Including all group data? All recent group data, anyway.
+- GROUP functionality... when you navigate to the group, we need to pull something useful. "Today's Activity," "This Week's Activity," etc.
+
+"MAKE A GROUP!"
+- Start date, end date, measuring period (optional, such as weekly, work-weekly, etc.)
+
+NOTE: uname will be your public face, unless you create a "pseudonym" to go by. Currently there are no special requirements or rules for this.
+
+
+DATABASE tables...
+[PGPeeps] : id (auto-increment), uname, pword, groups, rank, firstname, lastname, pseudonym, email, tier, reg_date, friends, questlog, playarea, settings
+[groups] : id (auto-increment), members (with permissions), framework/grouptype, privacy level/listing level, groupgoal, groupgoaltimeframe (start/end/measurement-timing)
+[September2017] : id, day1, day2, etc. 
+... each NPC will have their own table, which we can grab at later. Just a mental note. Well, actual note, I guess. :P
+
+What's the easiest way to retrieve ALL calendar data for someone? We have their reg_date already.
+
+
+////////
+
+Ok. We want to be able to cross-link accounts for different objectives. We'll have a Jefric cross (life goals) and a Rosemereff weight-loss cross.
+	- I think ... GROUPS table? New table is created when a group is created? Or a single GROUPS table that holds everything?
+	- Ok, if a GROUPS table, then ID for each group as primary key, and CORE DATA can include a GROUPS column to indicate which groups everyone is a member of.
+		- This shouuuuuld work ... since everything is user-driven, viewing and editing will pull through your data.
+		- The other side of this is when you're looking through old commentary, how do you access "Bob Jones (dd/mm/yy): Blah blah blah."
+		We can't easily store all this data client-side... hm... "CLIENT042 TIMESTAMP" may save more readily? 42xTIMESTAMPxMESSAGE?
+
+GROUP data:
+	- Member list
+	- Core message
+	- Any core mechanics... like countdown to a certain date, individual data points (daily/weekly calories, activities)
+		- Dangass. This can get awfully complicated! Careful.
+		- OR! Or or or. Or. Or.
+			What if.
+			Everyone has their own daily calendars of activities, right?
+			So give everyone tools to track what-the-fuck-ever they want. Be robust! Easy-peasy. And groups are for communication... messages. And stats are shared automatically from CALENDARS.
+			Meaning.
+			When you look at a group, it does a search through all members' 
+				... daily...
+				... data...
+				... within the group goal range.
+				Holy shit.
+				Um.
+				That's actually a lot.
+				Huh.
+				MAYBE we can do a little algorithm based on the goals and just "archive" it somewhere in the group so that, say, "rolling daily calories" just gets saved
+					rather than live-computed from everybody's whatever.
+				Also, we can consider using web workers? Is that a thing? Like, collect the gritty data in the background, because it's not the most critical info. Or
+					every time you check in... maybe actually hit a "Check In!" button or something... it updates your rolling data, and just saves that.
+
+SO, first thing: make calendar data. Every month has its own table. Saves everything for everyone for a given month. A script can pull it out and parse it into coherency,
+	and once it's coherent, JSON it into the client. We want to minimize database access and separate calls, so maybe a blind ham-handed grab of data, and then parse it from there?
+
+You log in. It pulls for you the current date and time upon login. This isn't a constant; just a way for the client to pull up today's current data from the MESS O INFO.
+	- Every time you update, it assumes you're updating for TODAY, but there should be a handy easy widget to "jump to" another day.
+
+IDEA: Emergency table creation... when someone logs in and runs a basic retrieval script, maybe a VERY quick run against a table for that date.
+	- That is to say, if it's September 1st, and there's no September 2017 table yet (uh oh!), throw up a quick script to fix that.
+	- Alternatively, we can do it on upload/update ... when selecting date(s) to update, if they ain't there, make 'em.
+		- Which is best? I dunno. We want this to be an "oops" thing, and it's probably best if we just pre-populate all foreseeable months running up to a year ahead.
+		- Thus, maybe just an exception handler when we update. Figure out how to check during the update, and do something fancy if we encounter a problem there.
+
+CREATE GOALGROUP
+	- Different types (you can tag weightloss to autoadd the calorie-tracker features, for example, as well as automatic easy-links to all top relevant articles and shit)
+
+
+BUILDREQ: 
+	< ) Something that culls ALL historical data into a script, and then parses it. Basically, the login script... whether manually or when you refresh/reload/navigate to the page with cookie... needs to grab ALL lifetime data for app usage. The app itself can sort it and yield effective goodies for the user.
+	< ) A calendar-viewer: something to take all that juicy calendar data and "draw" the appropriate calendars.
+		- Basically takes the "id 0 day 1" info out of a given table and uses those variables to quickly sketch-a-calendar.
+	< ) Groupmaker interface: based on permissions and possibly a reserve of uses, generate a group
+		- Easy invites (by name or by id)
+		- Setup purpose, startup messages, proper chunks of customization
+	< ) Son of Sephos: Beta
+		- Define core content for 9/8
+		- Brainstorm database access, client/browser load (which will be predominant), as well as quick/reasonable/efficient ways to access the server for multiplayer
+		- "Scripting characters" and both full-NPC (guildleaders) and half-NPC (other "players")
+		- Core skills/mechanics/areas
+
+
+CORE DATA(base)
+	- For current goals and goal-groups, some information will be flagged as 'critical,' thus will be prompted on a daily basis.
+		- Example: weight loss will prompt daily request for calories consumed
+
+PROG-JECT SKETCH (mostly from BUILDREQ)
+Son of Sephos
+	- See sonofsephos.html
+Groupmaker
+	- Choose category of group to make (such as weight loss), each of which automatically populates some core mechanics (such as daily calorie count)
+	- Invitation (by name, ideally)
+	- Setting permissions (thus, easy list of current members, quick clicks)
+	- Basic message board mechanics; "main feed"
+	- At-a-glance personal progress, as well as at-a-glance: team progress, other member progress (in some fashion - this may mean some indication of rolling progress, it may mean generally tracking activity and responsiveness, etc.)
+Calendar Viewer
+	- Each calendar has its builder data baked in. Cool! Start day, final day, month length. Use that to build a calendar.
+	- Calendar should be the better part of the page in size. Click a day, get its deets. Though many buttons (like daily to-do) will just default to "today," and you can have a little thumbnail in the corner where you click it to bring up the proper-sized calendar. 
+	- So, maybe build a "blank" calendar that gets filled in (or refilled in) with the appropriate data.
+		- Is it live? Any need to check the server again, or can we go with whatever the client has already been given?
+		- Either way, when you make a change, you want it reflected in the DB. Maybe forced saves and intermittent autosaves.
+
+-->
